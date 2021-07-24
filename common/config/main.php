@@ -17,7 +17,7 @@ return [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.mail.ru',
                 'username' => 'astartess@mail.ru',
-                'password' => 'roverok20a3',
+                'password' => '******',
                 'port' => '465',
                 'encryption' => 'ssl',
             ],

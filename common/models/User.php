@@ -62,6 +62,21 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function isGuest()
+    {
+        return $this->role == self::ROLE_GUEST;
+    }
+
+    public function isUser()
+    {
+        return $this->role == self::ROLE_USER;
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == self::ROLE_ADMIN;
+    }
+
     /**
      * {@inheritdoc}
      */
