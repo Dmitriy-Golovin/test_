@@ -77,6 +77,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->role == self::ROLE_ADMIN;
     }
 
+    public function getMessages()
+    {
+        return $this->hasMany(Message::className(), ['userId' => 'userId']);
+    }
+
     /**
      * {@inheritdoc}
      */

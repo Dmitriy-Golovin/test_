@@ -118,3 +118,63 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.chat-index {
+    height: calc(100vh - 150px);
+}
+
+#my_pjax {
+    height: 100%;
+}
+
+.message-block {
+    height: calc(100% - 200px);
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.guest-message-block {
+    height: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.write-message-block {
+    height: 200px;
+    padding: 15px 0px;
+}
+
+.guest-write-message-block {
+    display: none;
+}
+
+.message-container {
+    width: 100%;
+    border-bottom: 1px solid black;
+}
+
+.message-admin-container {
+    background: #F6D8CE;
+}
+
+.message-title {
+    padding: 10px 0px;
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+}
+
+.message-username {
+    display: block;
+}
+
+.message-time {
+    display: block;
+}
+
+.message-content {
+    padding: 10px 0px 10px 20px;
+}
