@@ -18,15 +18,23 @@ $user = \Yii::$app->user->identity;
 	<div class="<?= ($user->isGuest()) ? 'guest-message-block' : 'message-block' ?>">
 		<?php
 		foreach($queryMessage->each() as $message) {
+			$buttonSetIncorrect = ($message->correct == Message::CORRECT && $user->role == User::ROLE_ADMIN) ?
+				Html::a('Пометить некорректным', ['set-incorrect', 'id' => $message->messageId], ['class' => 'btn-set-incorrect btn btn-primary',
+		            'data' => [
+		                'method' => 'post',
+		            ],
+	        	]) : '';
+
 			$incorrectMessageEl = ($message->correct == Message::INCORRECT) ? Html::tag('span', 'Некорректное сообщение', ['class' => 'incorrect-message-block']) : '';
 
 			echo Html::tag('div', 
-			Html::tag('div',
-				Html::tag('span', $message->user->username, ['class' => 'message-username']) . ' ' .
-				Html::tag('span', Html::encode(\Yii::$app->formatter->asDatetime($message->createdAt)), ['class' => 'message-time']),
-			['class' => 'message-title']) . ' ' .
-			Html::tag('div', Html::encode($message->text), ['class' => 'message-content']) . ' ' .
-			$incorrectMessageEl,
+				Html::tag('div',
+					Html::tag('span', $message->user->username, ['class' => 'message-username']) . ' ' .
+					Html::tag('span', Html::encode(\Yii::$app->formatter->asDatetime($message->createdAt)), ['class' => 'message-time']),
+				['class' => 'message-title']) . ' ' .
+				Html::tag('div', Html::encode($message->text), ['class' => 'message-content']) . ' ' .
+				$buttonSetIncorrect . ' ' .
+				$incorrectMessageEl,
 			['class' => ($message->user->role == User::ROLE_ADMIN) ? 'message-container message-admin-container' : 'message-container']);
 		}
 		?>
@@ -43,7 +51,6 @@ $user = \Yii::$app->user->identity;
 		<div class="form-group">
 	        <?= Html::a('Отправить', ['chat/send'], [
 	        	'class' => 'btn btn-success',
-	        	'pjax-container' => 'my_pjax',
 	        	'data' => [
                     'method' => 'post',
                 ],

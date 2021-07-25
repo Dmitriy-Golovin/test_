@@ -8,6 +8,7 @@ use yii\filters\AccessControl;
 use frontend\models\ChatForm;
 use yii\helpers\ArrayHelper;
 use common\models\User;
+use common\models\Message;
 
 class ChatController extends Controller
 {
@@ -17,6 +18,7 @@ class ChatController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'send' => ['POST'],
+                    'set-incorrect' => ['POST'],
                 ],
             ];
 
@@ -42,6 +44,15 @@ class ChatController extends Controller
 					'matchCallback' => function ($rule, $action) {
                         $user = \Yii::$app->user->identity;
 						return $user->role != $user::ROLE_GUEST;
+                    }
+				],
+
+				[
+					'allow' => true,
+					'actions' => ['set-incorrect'],
+					'matchCallback' => function ($rule, $action) {
+                        $user = \Yii::$app->user->identity;
+						return $user->role == $user::ROLE_ADMIN;
                     }
 				],
 			],
@@ -76,5 +87,22 @@ class ChatController extends Controller
 			
 			return $this->redirect(['index']);
 		}
+	}
+
+	public function actionSetIncorrect($id)
+	{
+		$model = Message::findOne($id);
+
+        if ($model === null) {
+        	\Yii::$app->session->setFlash('error', 'Сообщение не найдено');
+        	return $this->redirect(['correct']);
+        }
+
+        if (!$model->setIncorrect()) {
+        	\Yii::$app->session->setFlash('error', $model->getFirstErrors());
+        	return $this->redirect(['correct']);
+        }
+
+        return $this->redirect(['index']);
 	}
 }

@@ -180,6 +180,12 @@ a.desc:after {
     padding: 10px 0px 10px 20px;
 }
 
+.btn-set-incorrect {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
 .incorrect-message-block {
     color: red;
     position: absolute;
