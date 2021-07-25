@@ -32,6 +32,10 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_USER = 2;
     const ROLE_ADMIN = 10;
 
+    const ROLE_LABEL_GUEST = 'гость';
+    const ROLE_LABEL_USER = 'пользователь';
+    const ROLE_LABEL_ADMIN = 'админ';
+
 
     /**
      * {@inheritdoc}
@@ -57,8 +61,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
+            ['role', 'integer'],
+            ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+    public static function roleLabels()
+    {
+        return [
+            self::ROLE_GUEST => self::ROLE_LABEL_GUEST,
+            self::ROLE_USER => self::ROLE_LABEL_USER,
+            self::ROLE_ADMIN => self::ROLE_LABEL_ADMIN,
         ];
     }
 

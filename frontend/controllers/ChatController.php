@@ -53,9 +53,11 @@ class ChatController extends Controller
 	public function actionIndex()
 	{
 		$model = new ChatForm();
+		$queryMessage = $model->getMessageList();
 
 		return $this->render('index', [
 			'model' => $model,
+			'queryMessage' => $queryMessage,
 		]);
 	}
 

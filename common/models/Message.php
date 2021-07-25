@@ -18,6 +18,9 @@ use Yii;
  */
 class Message extends \yii\db\ActiveRecord
 {
+    const CORRECT = 1;
+    const INCORRECT = 0;
+
     /**
      * {@inheritdoc}
      */
@@ -61,5 +64,27 @@ class Message extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['userId' => 'userId']);
+    }
+
+    public function setIncorrect()
+    {
+        $this->correct = self::INCORRECT;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function setCorrect()
+    {
+        $this->correct = self::CORRECT;
+
+        if (!$this->save()) {
+            return false;
+        }
+
+        return true;
     }
 }

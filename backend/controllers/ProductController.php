@@ -121,8 +121,6 @@ class ProductController extends Controller
 	        	$imageName = \Yii::$app->security->generateRandomString() . '.' . $image->extension;
 				$imagePath = $uploadDir . '/' . $imageName;
 
-	        	
-
 				if (!$image->saveAs($imagePath)) {
 					$transaction->rollBack();
 	                $this->getViewError($model, $view);

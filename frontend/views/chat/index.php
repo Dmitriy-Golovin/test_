@@ -9,8 +9,10 @@ use yii\widgets\ActiveField;
 use common\models\Message;
 use common\models\User;
 
-$user = Yii::$app->user->identity;
-$queryMessage = Message::find();
+$this->title = 'Чат';
+$this->params['breadcrumbs'][] = $this->title;
+
+$user = \Yii::$app->user->identity;
 ?>
 
 <div class="chat-index">
@@ -54,3 +56,20 @@ $queryMessage = Message::find();
 	<?php Pjax::end(); ?>
 
 </div>
+
+<?php
+
+$this->registerJs("
+	let messageBlock = $('.message-block'),
+		guestMessageBlock = $('.guest-message-block');
+
+	if ($('.message-block') && $('.message-block')[0]) {
+		$('.message-block').scrollTop($('.message-block')[0].scrollHeight);
+	}
+
+	if ($('.guest-message-block') && $('.guest-message-block')[0]) {
+		$('.guest-message-block').scrollTop($('.guest-message-block')[0].scrollHeight);
+	}
+");
+
+?>

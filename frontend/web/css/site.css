@@ -120,7 +120,7 @@ a.desc:after {
 }
 
 .chat-index {
-    height: calc(100vh - 150px);
+    height: calc(100vh - 210px);
 }
 
 #my_pjax {
@@ -158,7 +158,7 @@ a.desc:after {
 }
 
 .message-admin-container {
-    background: #F6D8CE;
+    background: #F7F2E0;
 }
 
 .message-title {

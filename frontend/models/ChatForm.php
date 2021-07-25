@@ -4,7 +4,6 @@ namespace frontend\models;
 
 use common\models\User;
 use common\models\Message;
-use yii\base\InvalidArgumentException;
 use yii\base\Model;
 
 class ChatForm extends Model {
@@ -17,6 +16,18 @@ class ChatForm extends Model {
             ['text', 'required'],
             ['text', 'string', 'max' => 1000],
         ];
+    }
+
+    public function getMessageList()
+    {
+        $user = \Yii::$app->user->identity;
+        $queryMessage = Message::find();
+
+        if ($user->role != User::ROLE_ADMIN) {
+            $queryMessage->andWhere(['correct' => Message::CORRECT]);
+        }
+
+        return $queryMessage;
     }
 
     public function saveMessage()

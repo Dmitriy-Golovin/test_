@@ -7,7 +7,7 @@ use yii\widgets\MaskedInput;
 
 ?>
 
-<div class="city-form">
+<div class="product-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
