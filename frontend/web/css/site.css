@@ -153,6 +153,7 @@ a.desc:after {
 }
 
 .message-container {
+    position: relative;
     width: 100%;
     border-bottom: 1px solid black;
 }
@@ -177,4 +178,11 @@ a.desc:after {
 
 .message-content {
     padding: 10px 0px 10px 20px;
+}
+
+.incorrect-message-block {
+    color: red;
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }

@@ -18,12 +18,15 @@ $user = \Yii::$app->user->identity;
 	<div class="<?= ($user->isGuest()) ? 'guest-message-block' : 'message-block' ?>">
 		<?php
 		foreach($queryMessage->each() as $message) {
+			$incorrectMessageEl = ($message->correct == Message::INCORRECT) ? Html::tag('span', 'Некорректное сообщение', ['class' => 'incorrect-message-block']) : '';
+
 			echo Html::tag('div', 
 			Html::tag('div',
 				Html::tag('span', $message->user->username, ['class' => 'message-username']) . ' ' .
 				Html::tag('span', Html::encode(\Yii::$app->formatter->asDatetime($message->createdAt)), ['class' => 'message-time']),
 			['class' => 'message-title']) . ' ' .
-			Html::tag('div', Html::encode($message->text), ['class' => 'message-content']),
+			Html::tag('div', Html::encode($message->text), ['class' => 'message-content']) . ' ' .
+			$incorrectMessageEl,
 			['class' => ($message->user->role == User::ROLE_ADMIN) ? 'message-container message-admin-container' : 'message-container']);
 		}
 		?>
