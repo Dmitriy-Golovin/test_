@@ -47,12 +47,12 @@ class Message extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'messageId' => 'Message ID',
-            'userId' => 'User ID',
-            'text' => 'Text',
+            'messageId' => 'ID',
+            'author' => 'Автор сообщения',
+            'text' => 'Текст сообщения',
             'correct' => 'Correct',
-            'createdAt' => 'Created At',
-            'updatedAt' => 'Updated At',
+            'createdAt' => 'Дата создания',
+            'updatedAt' => 'Дата обновления',
         ];
     }
 

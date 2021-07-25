@@ -67,6 +67,16 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function attributeLabels()
+    {
+        return [
+            'userId' => 'ID',
+            'username' => 'Псевдоним',
+            'email' => 'Email',
+            'role' => 'Роль',
+        ];
+    }
+
     public static function roleLabels()
     {
         return [

@@ -21,8 +21,8 @@ $gridColumn = [
     'messageId',
     [
         'attribute' => 'author',
-        'value' => function($searchModel) {
-            $authorUsername = $searchModel->user->username;
+        'value' => function(Message $model) {
+            $authorUsername = $model->user->username;
             return !empty($authorUsername) ? $authorUsername : '';
         }
     ],
