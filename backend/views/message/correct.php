@@ -1,11 +1,8 @@
 <?php
 
 use yii\grid\GridView;
-use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use yii\widgets\ActiveField;
 use common\models\Message;
 
 $this->title = 'Корректные сообщения';
