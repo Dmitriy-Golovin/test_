@@ -95,12 +95,12 @@ class ChatController extends Controller
 
         if ($model === null) {
         	\Yii::$app->session->setFlash('error', 'Сообщение не найдено');
-        	return $this->redirect(['correct']);
+        	return $this->redirect(['index']);
         }
 
         if (!$model->setIncorrect()) {
         	\Yii::$app->session->setFlash('error', $model->getFirstErrors());
-        	return $this->redirect(['correct']);
+        	return $this->redirect(['index']);
         }
 
         return $this->redirect(['index']);
