@@ -7,8 +7,6 @@ use common\models\Message;
 use common\models\User;
 
 $this->title = 'Чат';
-$this->params['breadcrumbs'][] = $this->title;
-
 ?>
 
 <div class="chat-index">

@@ -120,7 +120,7 @@ a.desc:after {
 }
 
 .chat-index {
-    height: calc(100vh - 210px);
+    height: calc(100vh - 150px);
 }
 
 #my_pjax {

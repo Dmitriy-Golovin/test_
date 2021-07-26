@@ -6,7 +6,6 @@ use yii\helpers\Html;
 use common\models\User;
 
 $this->title = 'Пользователи';
-$this->params['breadcrumbs'][] = $this->title;
 
 $user = \Yii::$app->user->identity;
 ?>
