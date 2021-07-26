@@ -21,7 +21,7 @@ $gridColumn = [
     [
     	'attribute' => 'role',
     	'value' => function(User $model) {
-    		return !empty($model->role) ? User::roleLabels()[$model->role] : null;
+    		return $model->roleLabels()[User::getUserRole($model->userId)];
     	}
     ],
     [

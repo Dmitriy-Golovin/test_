@@ -30,15 +30,6 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                    [
-                        'actions' => ['index'],
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            $user = \Yii::$app->user->identity;
-                            return !empty($user) ? $user->role == $user::ROLE_ADMIN : false;
-                        }
-
-                    ],
                 ],
             ],
             'verbs' => [
@@ -60,16 +51,6 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
-    public function actionIndex()
-    {
-        return $this->render('index');
     }
 
     /**

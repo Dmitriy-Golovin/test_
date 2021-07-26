@@ -21,10 +21,7 @@ class MessageController extends Controller
 				[
 					'allow' => true,
 					'actions' => ['correct', 'incorrect', 'set-incorrect', 'set-correct'],
-					'matchCallback' => function ($rule, $action) {
-                        $user = \Yii::$app->user->identity;
-						return !empty($user) ? $user->role == $user::ROLE_ADMIN : false;
-                    }
+					'roles' => ['admin'],
 				],
 			],
 		];

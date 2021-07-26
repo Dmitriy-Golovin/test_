@@ -9,6 +9,10 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
+        ],
      'mailer' => [
             'viewPath' => '@common/mail',
             'class' => 'yii\swiftmailer\Mailer',

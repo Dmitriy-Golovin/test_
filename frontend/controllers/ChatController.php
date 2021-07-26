@@ -6,6 +6,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\ChatForm;
+use frontend\models\IncorrectMessageForm;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use common\models\Message;
@@ -25,35 +26,22 @@ class ChatController extends Controller
 		$behaviors['access'] = [
 			'class' => \yii\filters\AccessControl::className(),
 			'rules' => [
-
-				[
-					'allow' => false,
-					'actions' => ['index', 'send'],
-					'roles' => ['?'],
-				],
-
 				[
 					'allow' => true,
 					'actions' => ['index'],
-					'roles' => ['@'],
+					'roles' => ['guest', 'user', 'admin'],
 				],
 
 				[
 					'allow' => true,
 					'actions' => ['send'],
-					'matchCallback' => function ($rule, $action) {
-                        $user = \Yii::$app->user->identity;
-						return $user->role != $user::ROLE_GUEST;
-                    }
+					'roles' => ['user', 'admin'],
 				],
 
 				[
 					'allow' => true,
-					'actions' => ['set-incorrect'],
-					'matchCallback' => function ($rule, $action) {
-                        $user = \Yii::$app->user->identity;
-						return $user->role == $user::ROLE_ADMIN;
-                    }
+					'actions' => ['incorrect', 'set-incorrect', 'set-correct'],
+					'roles' => ['admin'],
 				],
 			],
 		];
@@ -70,6 +58,18 @@ class ChatController extends Controller
 			'model' => $model,
 			'queryMessage' => $queryMessage,
 		]);
+	}
+
+	public function actionIncorrect()
+	{
+        $searchModel = new IncorrectMessageForm();
+
+        $dataProvider = $searchModel->searchIncorrect(\Yii::$app->request->queryParams);
+
+        return $this->render('incorrect', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
 	}
 
 	public function actionSend()
@@ -104,5 +104,22 @@ class ChatController extends Controller
         }
 
         return $this->redirect(['index']);
+	}
+
+	public function actionSetCorrect($id)
+	{
+		$model = Message::findOne($id);
+
+        if ($model === null) {
+        	\Yii::$app->session->setFlash('error', 'Сообщение не найдено');
+        	return $this->redirect(['incorrect']);
+        }
+
+        if (!$model->setCorrect()) {
+        	\Yii::$app->session->setFlash('error', $model->getFirstErrors());
+        	return $this->redirect(['incorrect']);
+        }
+
+        return $this->redirect(['incorrect']);
 	}
 }

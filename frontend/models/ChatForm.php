@@ -5,6 +5,7 @@ namespace frontend\models;
 use common\models\User;
 use common\models\Message;
 use yii\base\Model;
+use yii\data\ActiveDataProvider;
 
 class ChatForm extends Model {
 
@@ -23,7 +24,7 @@ class ChatForm extends Model {
         $user = \Yii::$app->user->identity;
         $queryMessage = Message::find();
 
-        if ($user->role != User::ROLE_ADMIN) {
+        if (empty($user) || !User::currentUserRoleIs('admin', $user->userId)) {
             $queryMessage->andWhere(['correct' => Message::CORRECT]);
         }
 

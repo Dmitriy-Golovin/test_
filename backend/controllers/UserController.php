@@ -20,10 +20,7 @@ class UserController extends Controller
 				[
 					'allow' => true,
 					'actions' => ['index', 'update'],
-					'matchCallback' => function ($rule, $action) {
-                        $user = \Yii::$app->user->identity;
-						return !empty($user) ? $user->role == $user::ROLE_ADMIN : false;
-                    }
+					'roles' => ['admin'],
 				],
 			],
 		];
@@ -52,15 +49,12 @@ class UserController extends Controller
         }
 
         if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
-            if (!$model->save()) {
-                \Yii::$app->session->setFlash('error', $model->getFirstErrors());
+            $auth = \Yii::$app->authManager;
+	        $role = $auth->getRole($model->role);
+	        $auth->revokeAll($model->userId);
+	        $auth->assign($role, $model->userId);
 
-                return $this->render('update', [
-		        	'model' => $model,
-		        ]);
-            }
-
-            return $this->redirect(['index']);
+	        return $this->redirect(['index']);
         }
 
         return $this->render('update', [

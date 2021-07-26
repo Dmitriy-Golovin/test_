@@ -28,13 +28,15 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
 
-    const ROLE_GUEST = 1;
-    const ROLE_USER = 2;
-    const ROLE_ADMIN = 10;
+    const ROLE_GUEST = 'guest';
+    const ROLE_USER = 'user';
+    const ROLE_ADMIN = 'admin';
 
-    const ROLE_LABEL_GUEST = 'гость';
-    const ROLE_LABEL_USER = 'пользователь';
-    const ROLE_LABEL_ADMIN = 'админ';
+    const ROLE_LABEL_GUEST = 'Гость';
+    const ROLE_LABEL_USER = 'Пользователь';
+    const ROLE_LABEL_ADMIN = 'Админ';
+
+    public $role;
 
 
     /**
@@ -61,7 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            ['role', 'integer'],
+            ['role', 'safe'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
         ];
@@ -86,19 +88,28 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function isGuest()
-    {
-        return $this->role == self::ROLE_GUEST;
+    public static function currentUserRoleIs($name, $userId) {
+        $userRoles = \Yii::$app->authManager->getRolesByUser($userId);
+
+        foreach ($userRoles as $role) {
+            if ($role->name == $name) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public function isUser()
-    {
-        return $this->role == self::ROLE_USER;
-    }
+    public static function getUserRole($userId) {
+        $userRoles = \Yii::$app->authManager->getRolesByUser($userId);
 
-    public function isAdmin()
-    {
-        return $this->role == self::ROLE_ADMIN;
+        foreach ($userRoles as $role) {
+            if ($role->name == 'admin' || $role->name == 'user') {
+                return $role->name;
+            }
+        }
+
+        return \Yii::$app->authManager->getRole('guest')->name;
     }
 
     public function getMessages()

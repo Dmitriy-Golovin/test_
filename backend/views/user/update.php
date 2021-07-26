@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $form->field($model, 'role')->dropDownList($model->roleLabels()); ?>
+    <?= $form->field($model, 'role')->dropDownList($model->roleLabels(), ['value' => User::getUserRole($model->userId)]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Обновить', ['class' => 'btn btn-primary']) ?>

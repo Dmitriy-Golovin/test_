@@ -9,16 +9,15 @@ use common\models\User;
 $this->title = 'Чат';
 $this->params['breadcrumbs'][] = $this->title;
 
-$user = \Yii::$app->user->identity;
 ?>
 
 <div class="chat-index">
 	<?php Pjax::begin(['id' => 'my_pjax']); ?>
 
-	<div class="<?= ($user->isGuest()) ? 'guest-message-block' : 'message-block' ?>">
+	<div class="<?= (\Yii::$app->user->can('user') || \Yii::$app->user->can('admin')) ? 'message-block' : 'guest-message-block' ?>">
 		<?php
 		foreach($queryMessage->each() as $message) {
-			$buttonSetIncorrect = ($message->correct == Message::CORRECT && $user->role == User::ROLE_ADMIN) ?
+			$buttonSetIncorrect = ($message->correct == Message::CORRECT && \Yii::$app->user->can('admin')) ?
 				Html::a('Пометить некорректным', ['set-incorrect', 'id' => $message->messageId], ['class' => 'btn-set-incorrect btn btn-primary',
 		            'data' => [
 		                'method' => 'post',
@@ -35,12 +34,12 @@ $user = \Yii::$app->user->identity;
 				Html::tag('div', Html::encode($message->text), ['class' => 'message-content']) . ' ' .
 				$buttonSetIncorrect . ' ' .
 				$incorrectMessageEl,
-			['class' => ($message->user->role == User::ROLE_ADMIN) ? 'message-container message-admin-container' : 'message-container']);
+			['class' => (User::currentUserRoleIs('admin', $message->userId)) ? 'message-container message-admin-container' : 'message-container']);
 		}
 		?>
 
 	</div>
-	<div class="<?= ($user->isGuest()) ? 'guest-write-message-block' : 'write-message-block' ?>">
+	<div class="<?= (\Yii::$app->user->can('user') || \Yii::$app->user->can('admin')) ? 'write-message-block' : 'guest-write-message-block' ?>">
 		<?php $form = ActiveForm::begin(); ?>
 
 		<?= $form->field($model, 'text')->textArea([

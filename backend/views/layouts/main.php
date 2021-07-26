@@ -36,11 +36,8 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        //['label' => 'Product', 'url' => ['/product/index']],
-    ];
-    if (\Yii::$app->user->identity->role == User::ROLE_ADMIN) {
+    $menuItems = [];
+    if (\Yii::$app->user->can('admin')) {
         $menuItems[] = ['label' => 'Users', 'url' => ['/user/index']];
         $menuItems[] = ['label' => 'Correct messages', 'url' => ['/message/correct']];
         $menuItems[] = ['label' => 'Incorrect messages', 'url' => ['/message/incorrect']];
