@@ -11,8 +11,8 @@ use Yii;
  * @property int|null $userId
  * @property string|null $text
  * @property int|null $correct
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property int|null $createdAt
+ * @property int|null $updatedAt
  *
  * @property User $user
  */
