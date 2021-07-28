@@ -36,7 +36,7 @@ class Message extends \yii\db\ActiveRecord
     {
         return [
             [['userId', 'correct', 'createdAt', 'updatedAt'], 'integer'],
-            [['text'], 'string'],
+            [['text'], 'string', 'max' => 1000],
             [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userId' => 'userId']],
         ];
     }

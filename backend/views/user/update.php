@@ -4,6 +4,9 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use common\models\User;
 
+/* @var $this yii\web\View */
+/* @var $model common\models\User */
+
 $this->title = !empty($model->username) ? 'Редактировать пользователя ' . $model->username : 'Редактировать пользователя';
 
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];

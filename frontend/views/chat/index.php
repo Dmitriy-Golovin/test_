@@ -6,6 +6,10 @@ use yii\widgets\ActiveForm;
 use common\models\Message;
 use common\models\User;
 
+/* @var $this yii\web\View */
+/* @var $model frontend\models\ChatForm */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 $this->title = 'Чат';
 ?>
 
@@ -14,7 +18,7 @@ $this->title = 'Чат';
 
 	<div class="<?= (\Yii::$app->user->can('user') || \Yii::$app->user->can('admin')) ? 'message-block' : 'guest-message-block' ?>">
 		<?php
-		foreach($queryMessage->each() as $message) {
+		foreach($dataProvider->getModels() as $message) {
 			$buttonSetIncorrect = ($message->correct == Message::CORRECT && \Yii::$app->user->can('admin')) ?
 				Html::a('Пометить некорректным', ['set-incorrect', 'id' => $message->messageId], ['class' => 'btn-set-incorrect btn btn-primary',
 		            'data' => [
@@ -64,9 +68,6 @@ $this->title = 'Чат';
 <?php
 
 $this->registerJs("
-	let messageBlock = $('.message-block'),
-		guestMessageBlock = $('.guest-message-block');
-
 	if ($('.message-block') && $('.message-block')[0]) {
 		$('.message-block').scrollTop($('.message-block')[0].scrollHeight);
 	}

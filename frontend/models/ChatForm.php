@@ -7,28 +7,30 @@ use common\models\Message;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-class ChatForm extends Model {
+class ChatForm extends Message {
 
-	public $text;
-
-	public function rules()
-    {
-        return [
-            ['text', 'required'],
-            ['text', 'string', 'max' => 1000],
-        ];
-    }
-
-    public function getMessageList()
+    public function getMessageList($params)
     {
         $user = \Yii::$app->user->identity;
-        $queryMessage = Message::find();
+        $query = Message::find();
 
-        if (empty($user) || !User::currentUserRoleIs('admin', $user->userId)) {
-            $queryMessage->andWhere(['correct' => Message::CORRECT]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort'=> ['defaultOrder' => ['messageId' => SORT_ASC]],
+            'pagination' => false,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
         }
 
-        return $queryMessage;
+        if (empty($user) || !\Yii::$app->user->can('admin')) {
+            $query->andWhere(['correct' => Message::CORRECT]);
+        }
+
+        return $dataProvider;
     }
 
     public function saveMessage()

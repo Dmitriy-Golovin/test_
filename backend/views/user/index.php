@@ -5,6 +5,10 @@ use yii\widgets\Pjax;
 use yii\helpers\Html;
 use common\models\User;
 
+/* @var $this yii\web\View */
+/* @var $searchModel backend\models\UserForm; */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 $this->title = 'Пользователи';
 
 $user = \Yii::$app->user->identity;
@@ -41,6 +45,7 @@ $gridColumn = [
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'searchModel' => $searchModel,
     'columns' => $gridColumn,
     'summary' => false,
 ]); ?>

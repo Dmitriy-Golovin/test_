@@ -52,11 +52,11 @@ class ChatController extends Controller
 	public function actionIndex()
 	{
 		$model = new ChatForm();
-		$queryMessage = $model->getMessageList();
+		$dataProvider = $model->getMessageList(\Yii::$app->request->queryParams);
 
 		return $this->render('index', [
 			'model' => $model,
-			'queryMessage' => $queryMessage,
+			'dataProvider' => $dataProvider,
 		]);
 	}
 
@@ -79,9 +79,6 @@ class ChatController extends Controller
 		if ($model->load(\Yii::$app->request->post())) {
 			if (!$model->saveMessage()) {
 				\Yii::$app->session->setFlash('error', $model->getFirstError(''));
-				return $this->render('index', [
-					'model' => $model,
-				]);
 			}
 			
 			
