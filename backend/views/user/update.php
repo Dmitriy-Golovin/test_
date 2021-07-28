@@ -9,7 +9,6 @@ use common\models\User;
 
 $this->title = !empty($model->username) ? 'Редактировать пользователя ' . $model->username : 'Редактировать пользователя';
 
-$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['user/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

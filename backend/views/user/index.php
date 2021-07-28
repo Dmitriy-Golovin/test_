@@ -45,7 +45,6 @@ $gridColumn = [
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'searchModel' => $searchModel,
     'columns' => $gridColumn,
     'summary' => false,
 ]); ?>

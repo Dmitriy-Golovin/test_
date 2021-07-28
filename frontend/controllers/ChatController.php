@@ -7,7 +7,6 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\ChatForm;
 use frontend\models\IncorrectMessageForm;
-use yii\helpers\ArrayHelper;
 use common\models\User;
 use common\models\Message;
 
