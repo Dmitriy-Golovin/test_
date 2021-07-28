@@ -60,8 +60,10 @@ class SignupForm extends Model
             $role = $auth->getRole('user');
             $auth->assign($role, $user->id);
 
-            return $user;
+            return true;
         }
+
+        return false;
     }
 
     /**
