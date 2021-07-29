@@ -11,8 +11,6 @@ use common\models\Message;
 use common\models\User;
 
 $this->title = 'Чат';
-
-var_dump(\Yii::$app->authManager->getRolesByUser(9));
 ?>
 
 <div class="chat-index">
