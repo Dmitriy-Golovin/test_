@@ -1,14 +1,13 @@
 <?php
 
+/* @var $this yii\web\View */
+/* @var $model common\models\User */
+
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use common\models\User;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\User */
-
 $this->title = !empty($model->username) ? 'Редактировать пользователя ' . $model->username : 'Редактировать пользователя';
-
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -18,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $form->field($model, 'role')->dropDownList($model->roleLabels(), ['value' => User::getUserRole($model->userId)]); ?>
+    <?= $form->field($model, 'role')->dropDownList($model->roleLabels(), ['value' => $model->getUserRole()]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Обновить', ['class' => 'btn btn-primary']) ?>

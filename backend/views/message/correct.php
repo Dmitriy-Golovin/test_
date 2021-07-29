@@ -1,12 +1,12 @@
 <?php
 
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 use common\models\Message;
-
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Корректные сообщения';
 $this->params['breadcrumbs'][] = $this->title;

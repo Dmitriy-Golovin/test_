@@ -35,18 +35,19 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => 'Chat', 'url' => [\Yii::$app->homeUrl]],
-    ];
-
-    if (\Yii::$app->user->can('admin')) {
-        $menuItems[] = ['label' => 'Incorrect', 'url' => ['/chat/incorrect']];
-    }
 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems = [
+            ['label' => 'Chat', 'url' => [\Yii::$app->homeUrl]],
+        ];
+
+        if (\Yii::$app->user->can('admin')) {
+            $menuItems[] = ['label' => 'Incorrect', 'url' => ['/chat/incorrect']];
+        }
+        
         $menuItems[] = [
             'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],

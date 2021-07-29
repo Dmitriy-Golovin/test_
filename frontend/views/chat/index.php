@@ -1,16 +1,18 @@
 <?php
 
+/* @var $this yii\web\View */
+/* @var $model frontend\models\ChatForm */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Message;
 use common\models\User;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\models\ChatForm */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
 $this->title = 'Чат';
+
+var_dump(\Yii::$app->authManager->getRolesByUser(9));
 ?>
 
 <div class="chat-index">
@@ -36,7 +38,7 @@ $this->title = 'Чат';
 				Html::tag('div', Html::encode($message->text), ['class' => 'message-content']) . ' ' .
 				$buttonSetIncorrect . ' ' .
 				$incorrectMessageEl,
-			['class' => (User::currentUserRoleIs('admin', $message->userId)) ? 'message-container message-admin-container' : 'message-container']);
+			['class' => !empty(\Yii::$app->authManager->getRolesByUser($message->userId)[User::ROLE_ADMIN]) ? 'message-container message-admin-container' : 'message-container']);
 		}
 		?>
 

@@ -52,10 +52,7 @@ class UserController extends Controller
             $auth = \Yii::$app->authManager;
 	        $role = $auth->getRole($model->role);
 	        $auth->revokeAll($model->userId);
-
-	        if ($role !== 'guest') {
-	        	$auth->assign($role, $model->userId);
-	        }
+	        $auth->assign($role, $model->userId);
 
 	        return $this->redirect(['index']);
         }

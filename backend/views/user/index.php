@@ -1,13 +1,13 @@
 <?php
 
+/* @var $this yii\web\View */
+/* @var $searchModel backend\models\UserForm; */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 use common\models\User;
-
-/* @var $this yii\web\View */
-/* @var $searchModel backend\models\UserForm; */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Пользователи';
 
@@ -24,7 +24,7 @@ $gridColumn = [
     [
     	'attribute' => 'role',
     	'value' => function(User $model) {
-    		return $model->roleLabels()[User::getUserRole($model->userId)];
+            return array_key_exists($model->getUserRole(), User::roleLabels()) ? User::roleLabels()[$model->getUserRole()] : null;
     	}
     ],
     [

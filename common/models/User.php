@@ -88,28 +88,26 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public static function currentUserRoleIs($name, $userId) {
-        $userRoles = \Yii::$app->authManager->getRolesByUser($userId);
+    // public static function currentUserRoleIs($name, $userId) {
+    //     $userRoles = \Yii::$app->authManager->getRolesByUser($userId);
 
-        foreach ($userRoles as $role) {
-            if ($role->name == $name) {
-                return true;
-            }
+    //     foreach ($userRoles as $role) {
+    //         if ($role->name == $name) {
+    //             return true;
+    //         }
+    //     }
+
+    //     return false;
+    // }
+
+    public function getUserRoleStr() {
+        $roleArr = \Yii::$app->authManager->getRolesByUser($this->userId);
+
+        if (!empty($roleArr)) {
+            return array_key_first($roleArr);
         }
 
-        return false;
-    }
-
-    public static function getUserRole($userId) {
-        $userRoles = \Yii::$app->authManager->getRolesByUser($userId);
-
-        foreach ($userRoles as $role) {
-            if ($role->name == 'admin' || $role->name == 'user') {
-                return $role->name;
-            }
-        }
-
-        return \Yii::$app->authManager->getRole('guest')->name;
+        return null;
     }
 
     public function getMessages()

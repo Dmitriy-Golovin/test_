@@ -11,7 +11,6 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['guest'],
         ],
      'mailer' => [
             'viewPath' => '@common/mail',
