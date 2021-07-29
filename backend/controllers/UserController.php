@@ -44,7 +44,7 @@ class UserController extends Controller
 	{
         $model = User::findOne($id);
 
-        if ($model === null) {
+        if (empty($model)) {
         	throw new NotFoundHttpException('Пользователь не найден.');
         }
 
