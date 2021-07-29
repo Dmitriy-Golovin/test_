@@ -18,7 +18,6 @@ class ChatController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'send' => ['POST'],
-                    'set-incorrect' => ['POST'],
                 ],
             ];
 

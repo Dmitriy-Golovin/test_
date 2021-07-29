@@ -7,13 +7,6 @@ use yii\data\ActiveDataProvider;
 
 class IncorrectMessageForm extends Message
 {
-    public function rules()
-    {
-        return [
-
-        ];
-    }
-
     public function searchIncorrect($params)
     {
         $query = Message::find();

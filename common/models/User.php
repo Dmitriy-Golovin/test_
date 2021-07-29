@@ -88,7 +88,6 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-
     public function getUserRoleStr() {
         $roleArr = \Yii::$app->authManager->getRolesByUser($this->userId);
 

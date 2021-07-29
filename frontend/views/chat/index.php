@@ -4,7 +4,6 @@
 /* @var $model frontend\models\ChatForm */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-use yii\widgets\Pjax;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\Message;
@@ -14,16 +13,12 @@ $this->title = 'Чат';
 ?>
 
 <div class="chat-index">
-	<?php Pjax::begin(['id' => 'my_pjax']); ?>
 
 	<div class="<?= (\Yii::$app->user->can('user') || \Yii::$app->user->can('admin')) ? 'message-block' : 'guest-message-block' ?>">
 		<?php
 		foreach($dataProvider->getModels() as $message) {
 			$buttonSetIncorrect = ($message->correct == Message::CORRECT && \Yii::$app->user->can('admin')) ?
 				Html::a('Пометить некорректным', ['set-incorrect', 'id' => $message->messageId], ['class' => 'btn-set-incorrect btn btn-primary',
-		            'data' => [
-		                'method' => 'post',
-		            ],
 	        	]) : '';
 
 			$incorrectMessageEl = ($message->correct == Message::INCORRECT) ? Html::tag('span', 'Некорректное сообщение', ['class' => 'incorrect-message-block']) : '';
@@ -53,15 +48,13 @@ $this->title = 'Чат';
 	        <?= Html::a('Отправить', ['chat/send'], [
 	        	'class' => 'btn btn-success',
 	        	'data' => [
-                    'method' => 'post',
+                    'method' => 'POST',
                 ],
 	        ]) ?>
 	    </div>
 
 		<?php ActiveForm::end(); ?>
 	</div>
-
-	<?php Pjax::end(); ?>
 
 </div>
 

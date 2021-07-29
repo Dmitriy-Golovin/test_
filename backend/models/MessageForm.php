@@ -7,13 +7,6 @@ use yii\data\ActiveDataProvider;
 
 class MessageForm extends Message
 {
-    public function rules()
-    {
-        return [
-
-        ];
-    }
-
     public function searchCorrect($params)
     {
         $query = Message::find();

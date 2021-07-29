@@ -5,7 +5,6 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\helpers\Html;
 use common\models\User;
 
@@ -13,8 +12,6 @@ $this->title = 'Пользователи';
 
 $user = \Yii::$app->user->identity;
 ?>
-
-<?php Pjax::begin(['id' => 'my_pjax']); ?>
 
 <?php
 $gridColumn = [
@@ -49,5 +46,3 @@ $gridColumn = [
     'columns' => $gridColumn,
     'summary' => false,
 ]); ?>
-<?php Pjax::end(); ?>
-

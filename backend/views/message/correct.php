@@ -4,17 +4,12 @@
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\helpers\Html;
 use common\models\Message;
 
 $this->title = 'Корректные сообщения';
 $this->params['breadcrumbs'][] = $this->title;
-
-$user = \Yii::$app->user->identity;
 ?>
-
-<?php Pjax::begin(['id' => 'my_pjax']); ?>
 
 <?php
 $gridColumn = [
@@ -36,7 +31,6 @@ $gridColumn = [
             'setIncorrect' => function($url, Message $model) {
                 return Html::a('<span class="glyphicon glyphicon-remove"></span>', [
                     'message/set-incorrect', 'id' => $model->messageId,
-                    'pjax-container' => 'my_pjax',
                 ]);
             },
         ],
@@ -50,5 +44,3 @@ $gridColumn = [
     'columns' => $gridColumn,
     'summary' => false,
 ]); ?>
-<?php Pjax::end(); ?>
-

@@ -7,13 +7,6 @@ use yii\data\ActiveDataProvider;
 
 class UserForm extends User
 {
-    public function rules()
-    {
-        return [
-
-        ];
-    }
-
     public function search($params)
     {
         $query = User::find();
