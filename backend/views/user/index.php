@@ -24,7 +24,7 @@ $gridColumn = [
     [
     	'attribute' => 'role',
     	'value' => function(User $model) {
-            return array_key_exists($model->getUserRole(), User::roleLabels()) ? User::roleLabels()[$model->getUserRole()] : null;
+            return array_key_exists($model->getUserRole(), User::roleLabels()) ? User::roleLabels()[$model->getUserRoleStr()] : null;
     	}
     ],
     [
